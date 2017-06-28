@@ -1,0 +1,21 @@
+{
+	"errcode":0,
+	"gained":60,
+	"helpers": [
+		{
+			"nickname": "user1",
+			"headimg": "images/head.jpg",
+			"flow": 50
+		},
+		{
+			"nickname": "user2",
+			"headimg": "images/head.jpg",
+			"flow": 50
+		},
+		{
+			"nickname": "user3",
+			"headimg": "images/head.jpg",
+			"flow": 50
+		}
+	]
+}

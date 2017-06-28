@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640, user-scalable=no">
+    <title>分享页</title>
+    <script>
+        // 首次回调到授权地址把返回用户信息存在localStorage中，以后本地有缓存则直接读取（或可以走服务器存储方式）
+        var userinfo = {
+            openid: 'test',
+            nickname: 'huangxf',
+            headimg: 'images/head.jpg'
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+</head>
+
+<body>
+    <div id="vue-share">
+        <!--加载-->
+        <div class="loadingMask" v-if="loadingFlag"></div>
+        <div class="loadingText" v-if="loadingFlag" v-text="loadingText"></div>
+        <!--好友看到页面-->
+        <div class="container click" v-if="show.share">
+            <div class="logo"></div>
+            <div class="tit pa" v-bind:class="[{animated:titDrop},{bounceInDown:titDrop}]"></div>
+            <div class="pub">
+                <div class="head_box">
+                    <img v-bind:src="userinfo.headimg" />
+                </div>
+                <div class="txt_box tc">
+                    已获得 <span>{{gained}}</span> M
+                    <br>快来为@{{userinfo.nickname}}助力哦！
+                    <br>助力自己可得100M流量，快来抢呀！
+
+                </div>
+            </div>
+            <div class="btn" v-on:touchstart="show.share=false,show.shareGuide=true"></div>
+            <div class="rules" v-on:touchstart="show.rule=true"></div>
+            <transition
+                name="custom-classes-transition"
+                enter-active-class="animated fadeIn"
+                leave-active-class="animated fadeOut"
+            >
+            <div class="footer" v-for="(helper,index) in helpers" v-if="helper.show">
+                <div class="head_box">
+                    <img v-bind:src="helper.headimg" />
+                </div>
+                <div class="txt_box">中国好伙伴@{{helper.nickname}} 已经为好友助力，并把{{helper.flow}}M流量带回了家！！</div>
+            </div>
+            </transition>
+        </div>
+        <!--规则弹窗-->
+        <div class="popupMask" v-if="show.rule"></div>
+        <transition
+            name="custom-classes-transition"
+            enter-active-class="animated bounceInLeft"
+            leave-active-class="animated bounceOutRight"
+        >
+        <div class="popup" v-if="show.rule">
+            <rule-box></rule-box>
+            <div class="popBtn" @touchstart="show.rule=false">确 认</div>
+        </div>
+        </transition>
+
+        <!--助力成功弹层-->
+        <div class="mask"  v-if="show.shareGuide"></div>
+        <div class="share_box"  v-if="show.shareGuide" @click="location.href='index.html'"><img src="images/share3.png" /></div>
+    </div>
+
+    <script src="js/lib/vue.min.js"></script>
+    <script src="js/lib/vue-resource.js"></script>
+    <script src="js/lib/preloadjs-0.6.2.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/share.js"></script>
+</body>
+
+</html>
