@@ -1,5 +1,5 @@
 new Vue({
-	el: "#vxf",
+	el: "#vue-index",
 	data: {
 		userinfo: userinfo,
 		loader: {},
