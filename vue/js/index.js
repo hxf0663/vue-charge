@@ -66,6 +66,10 @@ new Vue({
 			this.loadingFlag = false;//隐藏加载层
 			this.titDrop = true;
 		},
+		closeBox: function(param){
+			console.log(param);
+			this.show.rule = param;
+		},
 		fetchFunc: function(){
 			if(this.cnt !== 60)return;
 			if(/^1[345789][0-9]{9}$/.test(this.form.tel)==false){

@@ -33,16 +33,7 @@
         </div>
         <!--规则弹窗-->
         <div class="popupMask" v-if="show.rule"></div>
-        <transition
-            name="custom-classes-transition"
-            enter-active-class="animated bounceInLeft"
-            leave-active-class="animated bounceOutRight"
-        >
-        <div class="popup" v-if="show.rule">
-            <rule-box></rule-box>
-            <div class="popBtn" @touchstart="show.rule=false">确 认</div>
-        </div>
-        </transition>
+        <rule-box v-bind:showrule="show.rule" v-on:box-close="closeBox"></rule-box><!-- 字面量Prop直接写属性名，动态Prop用v-bind:属性，传递给子组件的属性名全部小写，传递Props为Parent到Child单向绑定，用.sync修饰符可以实现编译时的双向绑定 -->
         <!--填写信息-->
         <div class="container info" v-if="show.info">
             <div class="tit pa" v-bind:class="[{animated:titDrop},{bounceInDown:titDrop}]"></div>

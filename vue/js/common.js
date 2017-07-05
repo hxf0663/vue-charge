@@ -5,13 +5,23 @@ Vue.directive('focus', {
 	}
 });
 // 活动规则组件
-Vue.component('rule-box', {
-	template: '<div>\
-			     <div class="popTit">{{ title }}</div>\
-			     <div class="popCont" v-html="content"></div>\
-			   </div>',
+Vue.component('rule-box', {//组件名驼峰变横杆
+        props: ['showrule'],//接收父组件的属性全部小写（每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你不应该在子组件内部改变 prop）
+	template: '<transition\
+                    name="custom-classes-transition"\
+                    enter-active-class="animated bounceInLeft"\
+                    leave-active-class="animated bounceOutRight"\
+                  >\
+                  <div class="popup" v-if="show">\
+                    <div class="popTit">{{ title }}</div>\
+                        <div class="popCont" v-html="content">\
+                    </div>\
+                    <div class="popBtn" @touchstart="closeMe">确 认</div>\
+                  </div>\
+                  </transition>',
 	data: function () {
 		return {
+                        show: this.showrule,
 			title: '星之灵“春节流量带回家”活动规则',
 			content: "1. 活动时间：2017-02-03 至2017-02-25" +
                 "<br> 2. 活动奖品：移动用户70M流量包/次，联通及电信用户50M流量包/次" +
@@ -38,5 +48,16 @@ Vue.component('rule-box', {
                 "<br> &middot;资深国际背景的专业团队，拥有行业中领先的产品设计能力；" +
                 "<br> &middot;通过实现复星各产业之间的互融互通，建立产业互联网生态系统，实现客户账户体系的全面整合。"
 		}
-	}
+	},
+        watch: {
+                showrule: function(val, oldVal){
+                        this.show = val;
+                }
+        },
+        methods: {
+                closeMe: function(){
+                        this.show = false;
+                        this.$emit('box-close', this.show);
+                }
+        }
 })

@@ -50,16 +50,7 @@
         </div>
         <!--规则弹窗-->
         <div class="popupMask" v-if="show.rule"></div>
-        <transition
-            name="custom-classes-transition"
-            enter-active-class="animated bounceInLeft"
-            leave-active-class="animated bounceOutRight"
-        >
-        <div class="popup" v-if="show.rule">
-            <rule-box></rule-box>
-            <div class="popBtn" @touchstart="show.rule=false">确 认</div>
-        </div>
-        </transition>
+        <rule-box v-bind:showrule="show.rule" v-on:box-close="show.rule=false"></rule-box>
 
         <!--继续邀请-->
         <div class="mask" v-if="show.shareGuide"></div>
